@@ -10,20 +10,7 @@ RESET = colorama.Fore.RESET
 RED = colorama.Fore.RED
 MAGENTA = colorama.Fore.MAGENTA
 colorama.init()
-print(
-    rf"{RED}          ______    __     __    _________    _________                                   ___ ___ ___                 ")
-print(
-    rf"{GREEN}         |  ____|  |  |   |  |  |  _____  |  | ________|                                 |   |   |   |            ")
-print(
-    rf"{GREEN}         | |       |  |   |  |  | |_____| |  | |____                                     |___|___|___|               ")
-print(
-    rf"{GREEN}         | |       |  |   |  |  |  _____  |  |  ____|                                    |   |   |   |            ")
-print(
-    rf"{GREEN}         | |____   |  |___|  |  | |_____| |  | |_______                                  |_O_|_A_|_T_|            ")
-print(
-    rf"{GREEN}         |______|  |_________|  |_________|  |_________|                                 |   |   |   |            ")
-print(
-    rf"{RED}                                                                                         |___|___|___|                     ")
+
 print(rf"{RED}                            _______    _________    __      ___      ___   ________    ________         ",
       end='\n')
 print(rf"{GREEN}                           |  _____|  |   ___   |  |  |     \  \    /  /  |  ______|  |  _____ |    ")
