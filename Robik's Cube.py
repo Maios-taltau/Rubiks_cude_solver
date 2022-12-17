@@ -19,7 +19,7 @@ print(
 print(
     rf"{GREEN}         | |       |  |   |  |  |  _____  |  |  ____|                                    |   |   |   |            ")
 print(
-    rf"{GREEN}         | |____   |  |___|  |  | |_____| |  | |_______                                  |_N_|_I_|_C_|            ")
+    rf"{GREEN}         | |____   |  |___|  |  | |_____| |  | |_______                                  |_O_|_A_|_T_|            ")
 print(
     rf"{GREEN}         |______|  |_________|  |_________|  |_________|                                 |   |   |   |            ")
 print(
@@ -209,7 +209,7 @@ def solve(state):
 
 
 def color_detect(h, s, v):
-    print(h, s, v)
+    #print(h, s, v)
     if h > 170 and h < 190 and s > 140 and s < 210 and v > 90 and v < 140:
         return 'red'
     elif h > 0 and h < 20 and s > 120 and s < 200 and v > 120 and v < 170:
@@ -339,8 +339,7 @@ if __name__ == '__main__':
         elif k == ord('b'):
             check_state.append('b')
             state['back'] = current_state
-        elif k == ord('s'):
-            # process(["R","R'"])
+        elif k == ord('\r'):
             if len(set(check_state)) == 6:
                 try:
                     solved = solve(state)
