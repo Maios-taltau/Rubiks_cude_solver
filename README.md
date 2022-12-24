@@ -2,7 +2,7 @@
 -To scan sides you can use keys in your keyboard: U=UP D=DOWN R=RIGHT L=LEFT F=FRONT B=BACK
 color symbols are mentioned in each center of side in preview window.
 as you may see GREEN will be in CENTRE and WHITE will be in UP.
--To continue you can use Enter keys in your keyboard.
+-To continue you can use Enter keys in your keyboard.\n
 -To close webcame window you can use Ecs keys in your keyboard.
 ![messageImage_1671864017913](https://user-images.githubusercontent.com/106130274/209425135-417aadee-c131-4728-9de3-eb23d6ff876d.jpg)
 
