@@ -1,4 +1,4 @@
-Currently this project under development
+## Currently this project under development
 ## Scribe
 
 - To scan sides you can use keys in your keyboard: U=UP D=DOWN R=RIGHT L=LEFT F=FRONT B=BACK
