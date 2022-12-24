@@ -34,7 +34,9 @@ To deploy this project run
 ```
 ## Features
 
-- Light/dark mode toggle
+- To scan sides you can use keys in your keyboard: U=UP D=DOWN R=RIGHT L=LEFT F=FRONT B=BACK
+color symbols are mentioned in each center of side in preview window.
+as you may see GREEN will be in CENTRE and WHITE will be in UP.
 - Live previews
 - Fullscreen mode
 - Cross platform
