@@ -1,8 +1,3 @@
-# Rubiks_cude_solver
-
-
-
-
 ## Deployment
 
 To deploy this project run
