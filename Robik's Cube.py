@@ -3,6 +3,7 @@ import numpy as np
 import kociemba as Cube
 import time
 import colorama
+import serial
 
 GREEN = colorama.Fore.GREEN
 GRAY = colorama.Fore.LIGHTBLACK_EX
@@ -124,6 +125,7 @@ def solve(state):
         for j in state[i]:
             raw += sign_conv[j]
     print("answer:", Cube.solve(raw))
+    #solve() returns the solution as a string
     return Cube.solve(raw)
 
 
@@ -145,11 +147,12 @@ def color_detect(h, s, v):
 
     return 'white'
 
-#ปุ่มตรวจจับสี
+#กรอบตรวจจับสี
 def draw_stickers(frame, stickers, name):
     for x, y in stickers[name]:
         #สี่เหลียม (ภาพ, มุมบนซ้าย (x,y), มุมล่างซ้าน (x,y),  สี BRG, ความหนา)
         cv2.rectangle(frame, (x, y), (x + 30, y + 30), (255, 255, 255), 2)
+
 
 #หน้าpreview
 def draw_preview_stickers(frame, stickers):
@@ -195,7 +198,9 @@ if __name__ == '__main__':
         #สร้าง matrix
         mask = np.zeros(frame.shape, dtype=np.uint8)
 
+        #กรอบ detect
         draw_stickers(img, stickers, 'main')
+        #กรอบ current
         draw_stickers(img, stickers, 'current')
         #วาดหน้า preview
         draw_preview_stickers(preview, stickers)
@@ -204,14 +209,17 @@ if __name__ == '__main__':
         #ใส่ข้อความหน้า preview
         texton_preview_stickers(preview, stickers)
 
+        #เก็บค่า hsv จากกรอบ detect
         for i in range(9):
             hsv.append(frame[stickers['main'][i][1] + 10][stickers['main'][i][0] + 10])
 
         a = 0
+        #ใส่สีลงในกรอบ current
         for x, y in stickers['current']:
             color_name = color_detect(hsv[a][0], hsv[a][1], hsv[a][2])
             cv2.rectangle(img, (x, y), (x + 30, y + 30), color[color_name], -1)
             a += 1
+            #เก็บค่าสีที่ detect ได้
             current_state.append(color_name)
 
         k = cv2.waitKey(5) & 0xFF
@@ -237,11 +245,10 @@ if __name__ == '__main__':
             state['back'] = current_state
         elif k == ord('\r'):
             if len(set(check_state)) == 6:
+                #ตรวจความผิด
                 try:
                     solved = solve(state)
-                    if solved:
-                        operation = solved.split(' ')
-                        process(operation)
+                #ถ้าผิดจะทำ
                 except:
                     print(
                         "error in side detection ,you may do not follow sequence or some color not detected well.Try again")
