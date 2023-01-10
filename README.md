@@ -33,3 +33,6 @@ To deploy this project run
 ```bash
   pip install colorama
 ```
+```bash
+  pip install pyserial
+```
