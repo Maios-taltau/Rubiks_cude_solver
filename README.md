@@ -22,13 +22,10 @@ To deploy this project run
   pip install opencv-python
 ```
 ```bash
-  pip install opencv-contrib-python
-```
-```bash
   pip install numpy
 ```
 ```bash
-  pip install times
+  pip install time
 ```
 ```bash
   pip install colorama
