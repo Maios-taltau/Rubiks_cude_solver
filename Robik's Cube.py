@@ -115,76 +115,8 @@ solution = []
 solved = False
 
 cap = cv2.VideoCapture(0)
+#กำหนดชื่อ
 cv2.namedWindow('frame')
-
-
-def rotate(side):
-    main = state[side]
-    front = state['front']
-    left = state['left']
-    right = state['right']
-    up = state['up']
-    down = state['down']
-    back = state['back']
-
-    if side == 'front':
-        left[2], left[5], left[8], up[6], up[7], up[8], right[0], right[3], right[6], down[0], down[1], down[2] = down[
-            0], down[1], down[2], left[8], left[5], left[2], up[6], up[7], up[8], right[6], right[3], right[0]
-    elif side == 'up':
-        left[0], left[1], left[2], back[0], back[1], back[2], right[0], right[1], right[2], front[0], front[1], front[
-            2] = front[0], front[1], front[2], left[0], left[1], left[2], back[0], back[1], back[2], right[0], right[1], \
-        right[2]
-    elif side == 'down':
-        left[6], left[7], left[8], back[6], back[7], back[8], right[6], right[7], right[8], front[6], front[7], front[
-            8] = back[6], back[7], back[8], right[6], right[7], right[8], front[6], front[7], front[8], left[6], left[
-            7], left[8]
-    elif side == 'back':
-        left[0], left[3], left[6], up[0], up[1], up[2], right[2], right[5], right[8], down[6], down[7], down[8] = up[2], \
-        up[1], up[0], right[2], right[5], right[8], down[8], down[7], down[6], left[0], left[3], left[6]
-    elif side == 'left':
-        front[0], front[3], front[6], down[0], down[3], down[6], back[2], back[5], back[8], up[0], up[3], up[6] = up[0], \
-        up[3], up[6], front[0], front[3], front[6], down[6], down[3], down[0], back[8], back[5], back[2]
-    elif side == 'right':
-        front[2], front[5], front[8], down[2], down[5], down[8], back[0], back[3], back[6], up[2], up[5], up[8] = down[
-            2], down[5], down[8], back[6], back[3], back[0], up[8], up[5], up[2], front[2], front[5], front[8]
-
-    main[0], main[1], main[2], main[3], main[4], main[5], main[6], main[7], main[8] = main[6], main[3], main[0], main[
-        7], main[4], main[1], main[8], main[5], main[2]
-
-
-def revrotate(side):
-    main = state[side]
-    front = state['front']
-    left = state['left']
-    right = state['right']
-    up = state['up']
-    down = state['down']
-    back = state['back']
-
-    if side == 'front':
-        left[2], left[5], left[8], up[6], up[7], up[8], right[0], right[3], right[6], down[0], down[1], down[2] = up[8], \
-        up[7], up[6], right[0], right[3], right[6], down[2], down[1], down[0], left[2], left[5], left[8]
-    elif side == 'up':
-        left[0], left[1], left[2], back[0], back[1], back[2], right[0], right[1], right[2], front[0], front[1], front[
-            2] = back[0], back[1], back[2], right[0], right[1], right[2], front[0], front[1], front[2], left[0], left[
-            1], left[2]
-    elif side == 'down':
-        left[6], left[7], left[8], back[6], back[7], back[8], right[6], right[7], right[8], front[6], front[7], front[
-            8] = front[6], front[7], front[8], left[6], left[7], left[8], back[6], back[7], back[8], right[6], right[7], \
-        right[8]
-    elif side == 'back':
-        left[0], left[3], left[6], up[0], up[1], up[2], right[2], right[5], right[8], down[6], down[7], down[8] = down[
-            6], down[7], down[8], left[6], left[3], left[0], up[0], up[1], up[2], right[8], right[5], right[2]
-    elif side == 'left':
-        front[0], front[3], front[6], down[0], down[3], down[6], back[2], back[5], back[8], up[0], up[3], up[6] = down[
-            0], down[3], down[6], back[8], back[5], back[2], up[0], up[3], up[6], front[0], front[3], front[6]
-    elif side == 'right':
-        front[2], front[5], front[8], down[2], down[5], down[8], back[0], back[3], back[6], up[2], up[5], up[8] = up[2], \
-        up[5], up[8], front[2], front[5], front[8], down[8], down[5], down[2], back[6], back[3], back[0]
-
-    main[0], main[1], main[2], main[3], main[4], main[5], main[6], main[7], main[8] = main[2], main[5], main[8], main[
-        1], main[4], main[7], main[0], main[3], main[6]
-
 
 def solve(state):
     raw = ''
@@ -195,6 +127,7 @@ def solve(state):
     return Cube.solve(raw)
 
 
+#HSV เป็นสีที่เกิดจากการผสมกันของ Hue (ค่าสี) , Saturation (ค่าความอิ่มตัวสี) และ Value (ค่าความสว่างของแสง)
 def color_detect(h, s, v):
     #print(h, s, v)
     if h > 170 and h < 190 and s > 140 and s < 210 and v > 90 and v < 140:
@@ -212,12 +145,13 @@ def color_detect(h, s, v):
 
     return 'white'
 
-
+#ปุ่มตรวจจับสี
 def draw_stickers(frame, stickers, name):
     for x, y in stickers[name]:
+        #สี่เหลียม (ภาพ, มุมบนซ้าย (x,y), มุมล่างซ้าน (x,y),  สี BRG, ความหนา)
         cv2.rectangle(frame, (x, y), (x + 30, y + 30), (255, 255, 255), 2)
 
-
+#หน้าpreview
 def draw_preview_stickers(frame, stickers):
     stick = ['front', 'back', 'left', 'right', 'up', 'down']
     for name in stick:
@@ -230,12 +164,16 @@ def texton_preview_stickers(frame, stickers):
     for name in stick:
         for x, y in stickers[name]:
             sym, x1, y1 = textPoints[name][0][0], textPoints[name][0][1], textPoints[name][0][2]
-            cv2.putText(preview, sym, (x1, y1), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
+            # putText(ภาพ, ข้อความ, พิกัดที่จะแสดง (x, y), font, ขนาดข้อความ, สี, ความหนา)
+            cv2.putText(preview, sym, (x1, y1), font, 1, (0, 0, 0), 1)
             sym, col, x1, y1 = textPoints[name][1][0], textPoints[name][1][1], textPoints[name][1][2], \
             textPoints[name][1][3]
-            cv2.putText(preview, sym, (x1, y1), font, 0.5, col, 1, cv2.LINE_AA)
+            # putText(ภาพ, ข้อความ, พิกัดที่จะแสดง (x, y), font, ขนาดข้อความ, สี, ความหนา)
+            cv2.putText(preview, sym, (x1, y1), font, 0.5, col, 2)
 
 
+#side = state, frame = preview
+#ใส่สีที่ detect ได้ใน preview
 def fill_stickers(frame, stickers, sides):
     for side, colors in sides.items():
         num = 0
@@ -244,55 +182,26 @@ def fill_stickers(frame, stickers, sides):
             num += 1
 
 
-def process(operation):
-    replace = {
-        "F": [rotate, 'front'],
-        "F2": [rotate, 'front', 'front'],
-        "F'": [revrotate, 'front'],
-        "U": [rotate, 'up'],
-        "U2": [rotate, 'up', 'up'],
-        "U'": [revrotate, 'up'],
-        "L": [rotate, 'left'],
-        "L2": [rotate, 'left', 'left'],
-        "L'": [revrotate, 'left'],
-        "R": [rotate, 'right'],
-        "R2": [rotate, 'right', 'right'],
-        "R'": [revrotate, 'right'],
-        "D": [rotate, 'down'],
-        "D2": [rotate, 'down', 'down'],
-        "D'": [revrotate, 'down'],
-        "B": [rotate, 'back'],
-        "B2": [rotate, 'back', 'back'],
-        "B'": [revrotate, 'back']
-    }
-    a = 0
-    for i in operation:
-        for j in range(len(replace[i]) - 1):
-            replace[i][0](replace[i][j + 1])
-        cv2.putText(preview, i, (700, a + 50), font, 1, (0, 255, 0), 1, cv2.LINE_AA)
-        fill_stickers(preview, stickers, state)
-        solution.append(preview)
-        cv2.imshow('solution', preview)
-        cv2.waitKey()
-        cv2.putText(preview, i, (700, 50), font, 1, (0, 0, 0), 1, cv2.LINE_AA)
-
-
 if __name__ == '__main__':
 
-    preview = np.zeros((700, 800, 3), np.uint8)
+    preview = np.zeros((700, 700, 3), np.uint8)
 
     while True:
         hsv = []
         current_state = []
         ret, img = cap.read()
-        # img=cv2.flip(img,1)
+        #เปลี่ยนสีวิดิโอ
         frame = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        #สร้าง matrix
         mask = np.zeros(frame.shape, dtype=np.uint8)
 
         draw_stickers(img, stickers, 'main')
         draw_stickers(img, stickers, 'current')
+        #วาดหน้า preview
         draw_preview_stickers(preview, stickers)
+        #ใส่สีที่ detect ได้ใน preview
         fill_stickers(preview, stickers, state)
+        #ใส่ข้อความหน้า preview
         texton_preview_stickers(preview, stickers)
 
         for i in range(9):
