@@ -194,6 +194,7 @@ if __name__ == '__main__':
         current_state = []
         ret, img = cap.read()
         #เปลี่ยนสีวิดิโอ
+        img = cv2.flip(img, 1)
         frame = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         #สร้าง matrix
         mask = np.zeros(frame.shape, dtype=np.uint8)
